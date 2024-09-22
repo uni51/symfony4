@@ -34,4 +34,17 @@ class HelloController extends AbstractController
         $result .= '</body></html>';
         return new Response($result);
     }
+
+    /**
+     * @Route("/hello/params/{name}/{pass}", name="params")
+     */
+    public function params($name=('noname'), $pass=('no password'))
+    {
+        $result = '<html><body><ol>';
+        $result .= '<h1>Parameter</h1>';
+        $result .= '<p>name: ' . $name . '</p>';
+        $result .= '<p>pass: ' . $pass . '</p>';
+        $result .= '</body></html>';
+        return new Response($result);
+    }
 }
