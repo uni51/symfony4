@@ -16,6 +16,32 @@ use Symfony\Component\Serializer\Serializer;
 class WelcomeController extends AbstractController
 {
     /**
+     * @Route("/form", name="welcome.form")
+     */
+    public function form(Request $request)
+    {
+        return $this->render('welcome/form.html.twig', [
+            'title' => 'Hello',
+            'message' => 'あなたのお名前：',
+        ]);
+    }
+
+    /**
+     * @Route("/post_recieve", name="welcome.post_recieve")
+     */
+    public function postrecieve(Request $request)
+    {
+        $inputName = $request->request->get('name');
+        $msg = 'こんにちは、' . $inputName . 'さん！';
+
+        return $this->render('welcome/form.html.twig', [
+            'title' => 'Hello',
+            'message' => $msg,
+        ]);
+    }
+
+
+    /**
      * @Route("/hello/{msg}", name="welcome")
      */
     public function index($msg='Hello!')
