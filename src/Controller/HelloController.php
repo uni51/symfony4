@@ -15,15 +15,15 @@ use Symfony\Component\Serializer\Serializer;
 
 class HelloController extends AbstractController
 {
-    /**
-     * @Route("/hello", name="hello")
-     */
-    public function index()
-    {
-        return $this->render('hello/index.html.twig', [
-            'controller_name' => 'HelloController',
-        ]);
-    }
+//    /**
+//     * @Route("/hello", name="hello")
+//     */
+//    public function index()
+//    {
+//        return $this->render('hello/index.html.twig', [
+//            'controller_name' => 'HelloController',
+//        ]);
+//    }
 
 //    /**
 //     * @Route("/hello", name="hello")
@@ -145,17 +145,17 @@ EOM;
         return $response;
     }
 
-    /**
-     * @Route("/other/{domain}", name="other")
-     */
-    public function other(Request $request, $domain = '')
-    {
-        if ($domain == '') {
-            return $this->redirect('/hello');
-        } else {
-            return new RedirectResponse("http://{$domain}.com");
-        }
-    }
+//    /**
+//     * @Route("/other/{domain}", name="other")
+//     */
+//    public function other(Request $request, $domain = '')
+//    {
+//        if ($domain == '') {
+//            return $this->redirect('/hello');
+//        } else {
+//            return new RedirectResponse("http://{$domain}.com");
+//        }
+//    }
 
     /**
      * @Route("/hello/params/{name}/{pass}", name="params")
