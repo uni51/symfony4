@@ -20,25 +20,32 @@ class WelcomeController extends AbstractController
      */
     public function form(Request $request)
     {
-        return $this->render('welcome/form.html.twig', [
-            'title' => 'Hello',
-            'message' => 'あなたのお名前：',
-        ]);
-    }
-
-    /**
-     * @Route("/post_recieve", name="welcome.post_recieve")
-     */
-    public function postrecieve(Request $request)
-    {
-        $inputName = $request->request->get('name');
-        $msg = 'こんにちは、' . $inputName . 'さん！';
+        if ($request->getMethod() == 'POST'){
+            $inputName = $request->request->get('name');
+            $msg = 'こんにちは、' . $inputName . 'さん！';
+        } else {
+            $msg = 'お名前は？';
+        }
 
         return $this->render('welcome/form.html.twig', [
             'title' => 'Hello',
-            'message' => $msg,
+            'message' =>  $msg,
         ]);
     }
+
+//    /**
+//     * @Route("/post_recieve", name="welcome.post_recieve")
+//     */
+//    public function postrecieve(Request $request)
+//    {
+//        $inputName = $request->request->get('name');
+//        $msg = 'こんにちは、' . $inputName . 'さん！';
+//
+//        return $this->render('welcome/form.html.twig', [
+//            'title' => 'Hello',
+//            'message' => $msg,
+//        ]);
+//    }
 
 
     /**
