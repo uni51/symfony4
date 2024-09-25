@@ -11,6 +11,17 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class TemplateController extends AbstractController
 {
     /**
+     * @Route("/template/with", name="template.with")
+     */
+    public function with(Request $request)
+    {
+        return $this->render('template/temp_with.html.twig', [
+            'title' => 'Hello',
+            'message' => 'これはサンプルのテンプレート画面です。',
+        ]);
+    }
+
+    /**
      * @Route("/template/set", name="template.set")
      */
     public function set(Request $request)
