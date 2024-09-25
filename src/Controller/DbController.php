@@ -15,6 +15,35 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DbController extends AbstractController
 {
     /**
+     * @Route("/db/update/{id}", name="db.update")
+     */
+    public function update(Request $request, Person $person)
+    {
+        $form = $this->createFormBuilder($person)
+            ->add('name', TextType::class)
+            ->add('mail', TextType::class)
+            ->add('age', IntegerType::class)
+            ->add('save', SubmitType::class, array('label' => 'Click'))
+            ->getForm();
+
+
+        if ($request->getMethod() == 'POST'){
+            $form->handleRequest($request);
+            $person = $form->getData();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirect('/db/index');
+        } else {
+            return $this->render('db/create.html.twig', [
+                'title' => 'Hello',
+                'message' => 'Update Entity id=' . $person->getId(),
+                'form' => $form->createView(),
+            ]);
+        }
+    }
+
+    /**
      * @Route("/db/create", name="db.create")
      */
     public function create(Request $request)
