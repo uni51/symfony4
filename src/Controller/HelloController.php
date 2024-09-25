@@ -18,23 +18,12 @@ class HelloController extends AbstractController
     /**
      * @Route("/hello", name="hello")
      */
-    public function index(Request $request)
+    public function index()
     {
         return $this->render('hello/index.html.twig', [
-            'title' => 'Hello',
-            'message' => 'これはサンプルのテンプレート画面です。',
+            'controller_name' => 'HelloController',
         ]);
     }
-
-//    /**
-//     * @Route("/hello", name="hello")
-//     */
-//    public function index()
-//    {
-//        return $this->render('hello/index.html.twig', [
-//            'controller_name' => 'HelloController',
-//        ]);
-//    }
 
 //    /**
 //     * @Route("/hello", name="hello")
