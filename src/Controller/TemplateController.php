@@ -4,12 +4,20 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class TemplateController extends AbstractController
 {
+    /**
+     * @Route("/template/if", name="template.if")
+     */
+    public function if(Request $request)
+    {
+        return $this->render('template/temp_if.html.twig', [
+            'title' => 'Hello',
+            'message' => 'これはサンプルのテンプレート画面です。',
+        ]);
+    }
+
     /**
      * @Route("/template/with", name="template.with")
      */

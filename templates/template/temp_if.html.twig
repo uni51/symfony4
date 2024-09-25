@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block page %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    {% set flg = true %}
+    {% set message = 'This is sample message.' %}
+    {% if flg %}
+        <p>{{message}}</p>
+    {% else %}
+        <p>（※メッセージは非表示）</p>
+    {% endif %}
+{% endblock %}
