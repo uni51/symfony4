@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 
+use App\Form\PersonType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,30 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DbController extends AbstractController
 {
+    /**
+     * @Route("/db/create", name="db.create")
+     */
+    public function create(Request $request)
+    {
+        $person = new Person();
+        $form = $this->createForm(PersonType::class, $person);
+        $form->handleRequest($request);
+
+        if ($request->getMethod() == 'POST'){
+            $person = $form->getData();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($person);
+            $manager->flush();
+            return $this->redirect('/db/index');
+        } else {
+            return $this->render('db/create.html.twig', [
+                'title' => 'Hello',
+                'message' => 'Create Entity',
+                'form' => $form->createView(),
+            ]);
+        }
+    }
+
     /**
      * @Route("/db/delete/{id}", name="db.delete")
      */
@@ -74,45 +99,45 @@ class DbController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/db/create", name="db.create")
-     */
-    public function create(Request $request)
-    {
-        // 新しいPersonオブジェクトを作成
-        $person = new Person();
-        // FormBuilderを使用してフォームを作成
-        $form = $this->createFormBuilder($person)
-                ->add('name', TextType::class)
-                ->add('mail', TextType::class)
-                ->add('age', IntegerType::class)
-                ->add('save', SubmitType::class, array('label' => 'Click'))
-                ->getForm();
-
-
-        if ($request->getMethod() == 'POST'){
-            $form->handleRequest($request); // リクエストデータでフォームを充填
-
-            // フォームのデータを取得
-            $person = $form->getData();
-            // Doctrineのマネージャーを取得
-            $manager = $this->getDoctrine()->getManager();
-
-            // 新しいPersonをデータベースに保存
-            $manager->persist($person);
-            $manager->flush(); // 変更をデータベースに書き込み
-
-            // 保存後、'/db/index' にリダイレクト
-            return $this->redirect('/db/index');
-        } else {
-            // GETリクエストの場合はフォームを表示
-            return $this->render('db/create.html.twig', [
-                'title' => 'Hello',
-                'message' => 'Create Entity',
-                'form' => $form->createView(),
-            ]);
-        }
-    }
+//    /**
+//     * @Route("/db/create", name="db.create")
+//     */
+//    public function create(Request $request)
+//    {
+//        // 新しいPersonオブジェクトを作成
+//        $person = new Person();
+//        // FormBuilderを使用してフォームを作成
+//        $form = $this->createFormBuilder($person)
+//                ->add('name', TextType::class)
+//                ->add('mail', TextType::class)
+//                ->add('age', IntegerType::class)
+//                ->add('save', SubmitType::class, array('label' => 'Click'))
+//                ->getForm();
+//
+//
+//        if ($request->getMethod() == 'POST'){
+//            $form->handleRequest($request); // リクエストデータでフォームを充填
+//
+//            // フォームのデータを取得
+//            $person = $form->getData();
+//            // Doctrineのマネージャーを取得
+//            $manager = $this->getDoctrine()->getManager();
+//
+//            // 新しいPersonをデータベースに保存
+//            $manager->persist($person);
+//            $manager->flush(); // 変更をデータベースに書き込み
+//
+//            // 保存後、'/db/index' にリダイレクト
+//            return $this->redirect('/db/index');
+//        } else {
+//            // GETリクエストの場合はフォームを表示
+//            return $this->render('db/create.html.twig', [
+//                'title' => 'Hello',
+//                'message' => 'Create Entity',
+//                'form' => $form->createView(),
+//            ]);
+//        }
+//    }
 
     /**
      * @Route("/db/find/{id}", name="db.find.id")
