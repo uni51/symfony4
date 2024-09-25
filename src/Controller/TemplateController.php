@@ -8,6 +8,24 @@ use Symfony\Component\HttpFoundation\Request;
 class TemplateController extends AbstractController
 {
     /**
+     * @Route("/template/with_array", name="template.with_array")
+     */
+    public function temp_with_array(Request $request)
+    {
+        $data = [
+            array('name'=>'Taro','age'=>37,'mail'=>'taro@yamada'),
+            array('name'=>'Hanako','age'=>29,'mail'=>'hanako@flowe'),
+            array('name'=>'Sachiko','age'=>43,'mail'=>'sachico@happy'),
+            array('name'=>'Jiro','age'=>18,'mail'=>'jiro@change'),
+        ];
+
+        return $this->render('template/with_array.html.twig', [
+            'title' => 'Hello',
+            'data' => $data,
+        ]);
+    }
+
+    /**
      * @Route("/template/include", name="template.include")
      */
     public function include(Request $request)

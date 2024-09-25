@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block page %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+
+{% block body %}
+    <p>※テーブルを用意します。</p>
+    {% include '/template/table.html.twig' with [data] %}
+{% endblock %}
