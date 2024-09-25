@@ -8,6 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 class TemplateController extends AbstractController
 {
     /**
+     * @Route("/template/macro", name="template.macro")
+     */
+    public function macro(Request $request)
+    {
+        return $this->render('template/call_macro.html.twig', [
+            'title' => 'Hello',
+        ]);
+    }
+
+    /**
      * @Route("/template/for2", name="template.for2")
      */
     public function for2(Request $request)

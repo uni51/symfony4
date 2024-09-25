@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as m %}
+
+{% block page %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <table>
+        {{ m.input('text', 'Name', 'noname') }}
+        {{ m.input('number', 'Age', '0') }}
+        {{ m.input('email', 'Mail', 'no@mail') }}
+        {{ m.submit('Click') }}
+    </table>
+{% endblock %}
+
