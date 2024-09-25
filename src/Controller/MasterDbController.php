@@ -33,7 +33,8 @@ class MasterDbController extends AbstractController
             $repository = $this->getDoctrine()
                 ->getRepository(Person::class);
 
-            $result = $repository->findBy(['name' => $findstr]);
+            // $result = $repository->findBy(['name' => $findstr]);
+            $result = $repository->findByName($findstr);
         } else {
             $result = null;
         }
