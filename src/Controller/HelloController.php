@@ -15,6 +15,17 @@ use Symfony\Component\Serializer\Serializer;
 
 class HelloController extends AbstractController
 {
+    /**
+     * @Route("/hello", name="hello")
+     */
+    public function index(Request $request)
+    {
+        return $this->render('hello/index.html.twig', [
+            'title' => 'Hello',
+            'message' => 'これはサンプルのテンプレート画面です。',
+        ]);
+    }
+
 //    /**
 //     * @Route("/hello", name="hello")
 //     */
