@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% import 'macro.html.twig' as m %}
+
+{% block page %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <p>※フォームを用意します。</p>
+    {% include '/template/form.html.twig' %}
+{% endblock %}
+

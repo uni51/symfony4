@@ -8,6 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 class TemplateController extends AbstractController
 {
     /**
+     * @Route("/template/include", name="template.include")
+     */
+    public function include(Request $request)
+    {
+        return $this->render('template/include_macro.html.twig', [
+            'title' => 'Hello',
+        ]);
+    }
+
+    /**
      * @Route("/template/macro", name="template.macro")
      */
     public function macro(Request $request)
