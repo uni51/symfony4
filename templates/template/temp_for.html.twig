@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block page %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    {% set arr = ['One', 'Two', 'Three', 'Four'] %}
+    <ul>
+        {% for item in arr %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

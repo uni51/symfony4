@@ -8,6 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 class TemplateController extends AbstractController
 {
     /**
+     * @Route("/template/for", name="template.for")
+     */
+    public function for(Request $request)
+    {
+        return $this->render('template/temp_for.html.twig', [
+            'title' => 'Hello',
+            'message' => 'これはサンプルのテンプレート画面です。',
+        ]);
+    }
+
+    /**
      * @Route("/template/if", name="template.if")
      */
     public function if(Request $request)
