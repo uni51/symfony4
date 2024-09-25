@@ -34,7 +34,7 @@ class MasterDbController extends AbstractController
                 ->getRepository(Person::class);
 
             // $result = $repository->findBy(['name' => $findstr]);
-            $result = $repository->findByName($findstr);
+            $result = $repository->findByAge($findstr);
         } else {
             $result = null;
         }
