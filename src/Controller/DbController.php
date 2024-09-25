@@ -14,17 +14,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DbController extends AbstractController
 {
     /**
-     * @Route("/db/index", name="db.index")
+     * @Route("/db/find/{id}", name="find")
      */
-    public function index(Request $request)
+    public function findById(Request $request, Person $person)
     {
-        $repository = $this->getDoctrine()
-            ->getRepository(Person::class);
-        $data = $repository->findall();
-
-        return $this->render('db/index.html.twig', [
+        return $this->render('db/auto_fetch_find.html.twig', [
             'title' => 'Hello',
-            'data' => $data,
+            'data' => $person,
         ]);
     }
 
@@ -43,7 +39,7 @@ class DbController extends AbstractController
             $form->handleRequest($request);
             $findstr = $form->getData()->getFind();
             $repository = $this->getDoctrine()
-                                ->getRepository(Person::class);
+                ->getRepository(Person::class);
 
             $result = $repository->find($findstr);
         } else {
@@ -54,6 +50,21 @@ class DbController extends AbstractController
             'title' => 'Hello',
             'form' => $form->createView(),
             'data' => $result,
+        ]);
+    }
+
+    /**
+     * @Route("/db/index", name="db.index")
+     */
+    public function index(Request $request)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository(Person::class);
+        $data = $repository->findall();
+
+        return $this->render('db/index.html.twig', [
+            'title' => 'Hello',
+            'data' => $data,
         ]);
     }
 }
