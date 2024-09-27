@@ -78,7 +78,7 @@ class PersonRepository extends ServiceEntityRepository
 
     public function findByName($value)
     {
-        $arr = explode(',' ,$value);
+        $arr = explode(',', $value);
         $builder = $this->createQueryBuilder('p');
         return $builder
             ->where($builder->expr()->in('p.name', $arr)) // 配列の場合は、プレースホルダーを使わずに直接指定する
@@ -86,11 +86,23 @@ class PersonRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+//    public function findByAge($value)
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->where('p.age >= ?1')
+//            ->setParameter(1, $value)
+//            ->getQuery()
+//            ->getResult();
+//    }
+
     public function findByAge($value)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.age >= ?1')
-            ->setParameter(1, $value)
+        $arr = explode(',', $value);
+        $builder = $this->createQueryBuilder('p');
+        return $builder
+            ->where($builder->expr()->gte('p.age', '?1'))
+            ->andWhere($builder->expr()->lte('p.age', '?2'))
+            ->setParameters(array(1 => $arr[0], 2 => $arr[1]))
             ->getQuery()
             ->getResult();
     }
