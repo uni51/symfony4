@@ -26,19 +26,19 @@ class MasterDbController extends AbstractController
             ->add('save', SubmitType::class, array('label' => 'Click'))
             ->getForm();
 
+        $repository = $this->getDoctrine()
+            ->getRepository(Person::class);
+
         if ($request->getMethod() == 'POST'){
             $form->handleRequest($request);
             $findstr = $form->getData()->getFind();
-
-            $repository = $this->getDoctrine()
-                ->getRepository(Person::class);
 
             // $result = $repository->findBy(['name' => $findstr]);
             // $result = $repository->findByAge($findstr);
             // $result = $repository->findByName($findstr);
             $result = $repository->findByNameOrMail($findstr);
         } else {
-            $result = null;
+            $result = $repository->findAllwithSort();
         }
 
         return $this->render('masterdb/find.html.twig', [
