@@ -47,12 +47,22 @@ class PersonRepository extends ServiceEntityRepository
         }
     }
 
+//    public function findByName($value)
+//    {
+//        return $this->createQueryBuilder('p') // p is an alias for Person（テーブル名）
+//            ->where('p.name like ?1') // ?1 is a placeholder
+//            ->setParameter(1, '%' . $value . '%') // set the value of the placeholder
+//            ->getQuery() // Queryクラスのインスタンスを取得
+//            ->getResult();
+//    }
+
     public function findByName($value)
     {
-        return $this->createQueryBuilder('p') // p is an alias for Person（テーブル名）
-            ->where('p.name like ?1') // ?1 is a placeholder
-            ->setParameter(1, '%' . $value . '%') // set the value of the placeholder
-            ->getQuery() // Queryクラスのインスタンスを取得
+        $arr = explode (',', $value);
+        return $this->createQueryBuilder('p')
+            ->where('p.name IN (:names)')
+            ->setParameter('names', $arr)
+            ->getQuery()
             ->getResult();
     }
 
