@@ -60,8 +60,8 @@ class PersonRepository extends ServiceEntityRepository
     {
         $arr = explode (',', $value);
         return $this->createQueryBuilder('p')
-            ->where('p.name IN (:names)')
-            ->setParameter('names', $arr)
+            ->where("p.name in (?1, ?2)")
+            ->setParameters(array(1 => $arr[0], 2 => $arr[1]))
             ->getQuery()
             ->getResult();
     }
