@@ -66,12 +66,22 @@ class PersonRepository extends ServiceEntityRepository
 //            ->getResult();
 //    }
 
+//    public function findByName($value)
+//    {
+//        $builder = $this->createQueryBuilder('p');
+//        return $builder
+//            ->where($builder->expr()->eq('p.name', '?1'))
+//            ->setParameter(1, $value)
+//            ->getQuery()
+//            ->getResult();
+//    }
+
     public function findByName($value)
     {
+        $arr = explode(',' ,$value);
         $builder = $this->createQueryBuilder('p');
         return $builder
-            ->where($builder->expr()->eq('p.name', '?1'))
-            ->setParameter(1, $value)
+            ->where($builder->expr()->in('p.name', $arr)) // 配列の場合は、プレースホルダーを使わずに直接指定する
             ->getQuery()
             ->getResult();
     }
