@@ -24,4 +24,19 @@ class FileController extends AbstractController
             'finder' => $finder,
         ]);
     }
+
+    /**
+     * @Route("/file/show_directories", name="file/show_directories")
+     */
+    public function showDirectories(): Response
+    {
+        $finder = new Finder();
+        $finder->directories()->in('../src/');
+
+        return $this->render('file/show_directories.html.twig', [
+            'title' => 'Hello',
+            'message' => 'get file/folder',
+            'finder' => $finder,
+        ]);
+    }
 }
