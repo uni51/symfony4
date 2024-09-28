@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 
@@ -29,14 +30,17 @@ class MasterDbController extends AbstractController
         $repository = $this->getDoctrine()
             ->getRepository(Person::class);
 
-        if ($request->getMethod() == 'POST'){
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             $findstr = $form->getData()->getFind();
 
-            // $result = $repository->findBy(['name' => $findstr]);
-            // $result = $repository->findByAge($findstr);
-            // $result = $repository->findByName($findstr);
-            $result = $repository->findByNameOrMail($findstr);
+            $query = $manager->createQuery(
+                "SELECT p FROM App\Entity\Person p 
+            WHERE p.name = '{$findstr}'");
+
+            $result = $query->getResult();
         } else {
             $result = $repository->findAllwithSort();
         }
@@ -47,6 +51,39 @@ class MasterDbController extends AbstractController
             'data' => $result,
         ]);
     }
+
+//    /**
+//     * @Route("/masterdb/find", name="masterdb.find")
+//     */
+//    public function find(Request $request)
+//    {
+//        $formobj = new FindForm();
+//        $form = $this->createFormBuilder($formobj)
+//            ->add('find', TextType::class)
+//            ->add('save', SubmitType::class, array('label' => 'Click'))
+//            ->getForm();
+//
+//        $repository = $this->getDoctrine()
+//            ->getRepository(Person::class);
+//
+//        if ($request->getMethod() == 'POST'){
+//            $form->handleRequest($request);
+//            $findstr = $form->getData()->getFind();
+//
+//            // $result = $repository->findBy(['name' => $findstr]);
+//            // $result = $repository->findByAge($findstr);
+//            // $result = $repository->findByName($findstr);
+//            $result = $repository->findByNameOrMail($findstr);
+//        } else {
+//            $result = $repository->findAllwithSort();
+//        }
+//
+//        return $this->render('masterdb/find.html.twig', [
+//            'title' => 'Hello',
+//            'form' => $form->createView(),
+//            'data' => $result,
+//        ]);
+//    }
 }
 
 class FindForm
@@ -58,6 +95,7 @@ class FindForm
     {
         return $this->find;
     }
+
     public function setFind($find)
     {
         $this->find = $find;
