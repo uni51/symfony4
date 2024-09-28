@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 
-{% block page %}{{title}}{% endblock %}
-{% block title %}{{title}}{% endblock %}
+{% block page %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 
 {% block body %}
@@ -13,13 +13,21 @@
             <th>Name</th>
             <th>Mail</th>
             <th>Age</th>
+            <th>Messages</th>
         </tr>
         {% for item in data %}
             <tr>
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.mail}}</td>
-                <td>{{item.age}}</td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.mail }}</td>
+                <td>{{ item.age }}</td>
+                <td>
+                    <ul>
+                        {% for msg in item.messages %}
+                            <li>{{ msg.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
         {% endfor %}
     </table>
