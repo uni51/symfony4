@@ -12,13 +12,14 @@ use App\Entity\Person;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidateController extends AbstractController
 {
     /**
      * @Route("/validate/create", name="validate.create")
      */
-    public function create(Request $request)
+    public function create(Request $request, ValidatorInterface $validator)
     {
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
@@ -26,11 +27,23 @@ class ValidateController extends AbstractController
 
         if ($request->getMethod() == 'POST'){
             $person = $form->getData();
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($person);
-            $manager->flush();
 
-            return $this->redirect('/validate/create');
+            $errors = $validator->validate($person);
+
+            if (count($errors) == 0) {
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($person);
+                $manager->flush();
+
+                return $this->redirect('/hello');
+            } else {
+                return $this->render('validate/create.html.twig', [
+                    'title' => 'Hello',
+                    'message' => 'ERROR!',
+                    'form' => $form->createView(),
+                ]);
+            }
+
         } else {
             return $this->render('validate/create.html.twig', [
                 'title' => 'Hello',
