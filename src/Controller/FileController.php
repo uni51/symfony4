@@ -37,7 +37,8 @@ class FileController extends AbstractController
         // $finder->files()->depth('<=2')->name('*.yaml')->in('../../');
         // $finder->files()->depth('<=0')->notName('*.lock')->in('../');
         // $finder->files()->depth('<=1')->contains('* @')->in('../src/');
-        $finder->files()->depth('<=1')->path('src')->path('templates')->in('../');
+        // $finder->files()->depth('<=1')->path('src')->path('templates')->in('../');
+        $finder->files()->depth('<=2')->size('>20480')->in('../'); // ファイルサイズが20KB以上のファイルを検索
 
         return $this->render('file/show_directories.html.twig', [
             'title' => 'Hello',
