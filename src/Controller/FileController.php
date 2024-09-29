@@ -4,11 +4,61 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class FileController extends AbstractController
 {
+    /**
+     * @Route("/file/write_file_accessed_time", name="file/write_file_accessed_time")
+     */
+    public function displayFileAccessedTime(Request $request)
+    {
+        $fileSystem = new Filesystem();
+        $temp = __DIR__ . '/temp';
+
+        try {
+            if (!$fileSystem->exists($temp)) {
+                $fileSystem->mkdir($temp);
+            }
+
+            $fileSystem->appendToFile($temp . '/temp.txt', "WRITE TEXT!!!   ");
+            $fileSystem->appendToFile($temp . '/temp.txt', date("Y-m-d H:i:s"));
+            $fileSystem->appendToFile($temp . '/temp.txt', "\n");
+
+        } catch (IOExceptionInterface $e) {
+            echo "ERROR! ". $e->getPath();
+        }
+
+        return $this->render('file/write_file_accessed_time.html.twig', [
+            'title' => 'Hello',
+            'message' => 'get file/folder',
+        ]);
+    }
+
+    /**
+     * @Route("/file/display_logs", name="file/display_logs")
+     */
+    public function displayLogs(Request $request)
+    {
+        $finder = new Finder();
+        $finder->files()->path('var/log')->name('dev.log')->in('../');
+        $file = null;
+        foreach($finder as $item) {
+            $file = $item;
+            break;
+        }
+
+        return $this->render('file/display_logs.html.twig', [
+            'title' => 'Hello',
+            'message' => 'get file/folder',
+            'file' => $file,
+        ]);
+    }
+
     /**
      * @Route("/file/show_controllers", name="file/show_controllers")
      */
