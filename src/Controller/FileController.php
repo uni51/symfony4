@@ -33,7 +33,8 @@ class FileController extends AbstractController
         $finder = new Finder();
         // $finder->directories()->in('../src/');
         // $finder->files()->in(['../src/Controller', '../src/Entity/', '../src/Repository/']);
-        $finder->files()->depth('<=1')->in('../templates/');
+        // $finder->files()->depth('<=1')->in('../templates/');
+        $finder->files()->depth('<=2')->name('*.yaml')->in('../../');
 
         return $this->render('file/show_directories.html.twig', [
             'title' => 'Hello',
