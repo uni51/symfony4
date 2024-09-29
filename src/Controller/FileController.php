@@ -31,7 +31,8 @@ class FileController extends AbstractController
     public function showDirectories(): Response
     {
         $finder = new Finder();
-        $finder->directories()->in('../src/');
+        // $finder->directories()->in('../src/');
+        $finder->files()->in(['../src/Controller', '../src/Entity/', '../src/Repository/']);
 
         return $this->render('file/show_directories.html.twig', [
             'title' => 'Hello',
