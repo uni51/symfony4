@@ -15,7 +15,7 @@ class FileController extends AbstractController
     /**
      * @Route("/file/write_file_accessed_time", name="file/write_file_accessed_time")
      */
-    public function displayFileAccessedTime(Request $request)
+    public function writeFileAccessedTime(Request $request)
     {
         $fileSystem = new Filesystem();
         $temp = __DIR__ . '/temp';
