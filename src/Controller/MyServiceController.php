@@ -16,7 +16,7 @@ class MyServiceController extends AbstractController
     public function index(Request $request, MyService $service, int $id = 1)
     {
         $person = $service->getPerson($id);
-        $msg = $person == null ? 'no person.' : 'name: ' . $person;
+        $msg = $person == null ? 'no person.' : $person;
         return $this->render('my_service/index.html.twig', [
             'title' => 'Hello',
             'message' => $msg,
