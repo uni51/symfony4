@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,28 @@ class HelloController extends AbstractController
     /**
      * @Route("/hello", name="hello")
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$this->getUser()->isActive()) {
+            throw new AccessDeniedException('Unable to access!');
+        }
+
         return $this->render('hello/index.html.twig', [
-            'controller_name' => 'HelloController',
+            'title' => 'Hello',
+            'message' => 'User Information.',
+            'user' => $this->getUser(),
         ]);
     }
+
+//    /**
+//     * @Route("/hello", name="hello")
+//     */
+//    public function index()
+//    {
+//        return $this->render('hello/index.html.twig', [
+//            'controller_name' => 'HelloController',
+//        ]);
+//    }
 
 //    /**
 //     * @Route("/hello", name="hello")
