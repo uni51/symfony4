@@ -11,13 +11,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class MyServiceController extends AbstractController
 {
     /**
-     * @Route("/myservice", name="myservice")
+     * @Route("/myservice/{id}", name="myservice")
      */
-    public function index(Request $request, MyService $service): Response
+    public function index(Request $request, MyService $service, int $id = 1)
     {
+        $person = $service->getPerson($id);
+        $msg = $person == null ? 'no person.' : 'name: ' . $person;
         return $this->render('my_service/index.html.twig', [
             'title' => 'Hello',
-            'message' => $service->getMessage(),
+            'message' => $msg,
         ]);
     }
+
+//    /**
+//     * @Route("/myservice", name="myservice")
+//     */
+//    public function index(Request $request, MyService $service): Response
+//    {
+//        return $this->render('my_service/index.html.twig', [
+//            'title' => 'Hello',
+//            'message' => $service->getMessage(),
+//        ]);
+//    }
 }
