@@ -21,7 +21,7 @@ class HelloController extends AbstractController
      */
     public function index(Request $request)
     {
-        if (!$this->getUser()->isActive()) {
+        if (!$this->getUser()->getIsActivated()) {
             throw new AccessDeniedException('Unable to access!');
         }
 

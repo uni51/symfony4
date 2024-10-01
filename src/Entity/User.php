@@ -95,7 +95,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActivated = true;
     }
 
 
@@ -125,7 +125,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive,
+            $this->isActivated,
         ));
     }
 
@@ -135,7 +135,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->isActive,
+            $this->isActivated,
             ) = unserialize($serialized, array('allowed_classes' => false));
     }
 }
