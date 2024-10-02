@@ -46,7 +46,6 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
-
         if ($request->getMethod() == 'POST') {
             $message = $form->getData();
             $errors = $validator->validate($message);
