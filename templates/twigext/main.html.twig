@@ -8,8 +8,7 @@
     <p>{{ number|price }}</p>
     <p>{{ number|price('$', 2) }}</p>
 
-    <p>{% helo "Taro" %}</p>
-    <p>{% helo "Hanako" %}</p>
-
+    <p>{% helo name="Taro" age="36" mail="taro@yamada" %}</p>
+    <p>{% helo name="Hanako" mail="hanako@flower" age="29" %}</p>
 
 {% endblock %}

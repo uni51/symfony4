@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Twig;
 
 use Twig\Token;
@@ -8,12 +9,20 @@ class HeloTokenParser extends AbstractTokenParser
 {
     public function parse(Token $token)
     {
-        $parser = $this->parser; // パーサーの取得
-        $stream = $parser->getStream(); // ストリームの取得
-        $value = $parser->getExpressionParser()->parseExpression();
+        $names = [];
+        $values = [];
+        $parser = $this->parser;
+        $stream = $parser->getStream();
+
+        for ($i = 0; $i < 3; $i++) {
+            $names['name' . $i] = $stream->expect(Token::NAME_TYPE)->getValue(); // 属性名の取得
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $values['value' . $i] = $parser->getExpressionParser()->parseExpression(); // 属性値の取得
+        }
+
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new HeloNode($value, $token->getLine(), $this->getTag());
+        return new HeloNode($values, $names, $token->getLine(), $this->getTag());
     }
 
     public function getTag()
