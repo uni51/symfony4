@@ -10,9 +10,10 @@ class HeloTokenParser extends AbstractTokenParser
     {
         $parser = $this->parser; // パーサーの取得
         $stream = $parser->getStream(); // ストリームの取得
+        $value = $parser->getExpressionParser()->parseExpression();
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new HeloNode($token->getLine(), $this->getTag());
+        return new HeloNode($value, $token->getLine(), $this->getTag());
     }
 
     public function getTag()
