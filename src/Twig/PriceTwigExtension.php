@@ -14,7 +14,6 @@ class PriceTwigExtension extends AbstractExtension
         ];
     }
 
-
     public function priceFilter($number, $header='￥', $decimals=0)
     {
         $price = number_format($number, $decimals, '.', ',');
